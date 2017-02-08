@@ -14,12 +14,14 @@ namespace APPDAssignment2._0.Database
         public List<Category> Categories { get; set; }
         public List<Resource> Resources { get; set; }
         public List<Booking> Bookings { get; set; }
+        public List<User> Users { get; set; }
 
         public DatabaseManager()
         {
             this.Categories = GetCategories();
             this.Resources = GetResources();
             this.Bookings = GetBookings();
+            this.Users = GetUsers();
         }
 
         public List<Category> GetCategories()
@@ -87,7 +89,7 @@ namespace APPDAssignment2._0.Database
             Booking oneBooking = null;
 
             List<DbParameter> ParameterList = new List<DbParameter>();
-            string sql = "SELECT BookingID, SlotDate, ResourceID, TimeSlotStart, TimeSlotEnd, BookedBy, BookingDate FROM BOOKING";
+            string sql = "SELECT BookingID, SlotDate, ResourceID, TimeSlotStart, TimeSlotEnd, NRIC, BookingDate FROM BOOKING";
             using (DbDataReader dataReader = base.GetDataReader(sql, ParameterList, CommandType.Text))
             {
                 if (dataReader != null && dataReader.HasRows)
@@ -100,13 +102,13 @@ namespace APPDAssignment2._0.Database
                         oneBooking.SlotDate = (DateTime?)dataReader["SlotDate"];
                         oneBooking.StartTime = (string)dataReader["TimeSlotStart"].ToString();
                         oneBooking.EndTime = (string)dataReader["TimeSlotEnd"].ToString();
-                        if (dataReader["BookedBy"] is System.DBNull)
+                        if (dataReader["NRIC"] is System.DBNull)
                         {
                             oneBooking.BookedBy = "";
                         }
                         else
                         {
-                            oneBooking.BookedBy = (string)dataReader["BookedBy"];
+                            oneBooking.BookedBy = (string)dataReader["NRIC"];
                         }
                         if (dataReader["BookingDate"] is System.DBNull)
                         {
@@ -122,6 +124,30 @@ namespace APPDAssignment2._0.Database
             }
 
             return BookingList;
+        }
+
+        public List<User> GetUsers()
+        {
+            List<User> UserList = new List<User>();
+            User oneUser = null;
+
+            List<DbParameter> ParameterList = new List<DbParameter>();
+            string sql = "SELECT NRIC, UserName, Password FROM [USER]";
+            using (DbDataReader dataReader = base.GetDataReader(sql, ParameterList, CommandType.Text))
+            {
+                if (dataReader != null && dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        oneUser = new User();
+                        oneUser.NRIC = (string)dataReader["NRIC"];
+                        oneUser.Username = (string)dataReader["UserName"];
+                        oneUser.Password = (string)dataReader["Password"];
+                        UserList.Add(oneUser);
+                    }
+                }
+            }
+            return UserList;
         }
     }
 }

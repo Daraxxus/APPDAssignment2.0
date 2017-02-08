@@ -33,5 +33,12 @@ namespace APPDAssignment2._0
             public string BookedBy { get; set; }
             public DateTime? BookingDate { get; set; }
         }
+
+        public class User
+        {
+            public string NRIC { get; set; }
+            public string Username { get; set; }
+            public string Password { get; set; } 
+        }
     }
 }
