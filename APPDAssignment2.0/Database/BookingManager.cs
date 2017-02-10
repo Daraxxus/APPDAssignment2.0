@@ -49,7 +49,7 @@ namespace APPDAssignment2._0.Database
             Boolean canBook = true;
             List<DbParameter> parameterList = new List<DbParameter>();
 
-            string sql = "SELECT NRIC, BookingDate FROM BOOKING WHERE ResourceID = @Resource AND SlotDate = @SlotDate AND TimeSlotStart = @StartTime";
+            string sql = "SELECT BookingDate FROM BOOKING WHERE ResourceID = @Resource AND SlotDate = @SlotDate AND TimeSlotStart = @StartTime";
 
             parameterList.Clear();
             parameterList.Add(base.GetParameter("@Resource", ResourceID));
@@ -72,6 +72,53 @@ namespace APPDAssignment2._0.Database
                     return canBook;
                 }
                 return canBook;
+            }
+        }
+        public List<Booking> prevBookings(string NRIC)
+        {
+            List<DbParameter> parameterList = new List<DbParameter>();
+            List<Booking> previousbookings = new List<Booking>();
+            Booking previousbooking;
+
+            string sql = "SELECT ResourceID, SlotDate, TimeSlotStart, TimeSlotEnd FROM BOOKING WHERE NRIC = @NRIC";
+
+            parameterList.Clear();
+            parameterList.Add(base.GetParameter("@NRIC", NRIC));
+
+            using (DbDataReader dataReader = base.GetDataReader(sql, parameterList, CommandType.Text))
+            {
+                if (dataReader != null && dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        previousbooking = new Booking();
+                        int R_ID = (int)dataReader["ResourceID"];
+
+                        string sqlStatement = "SELECT ResourceName FROM RESOURCE WHERE ResourceID = @Resource_ID";
+
+                        List<DbParameter> PList = new List<DbParameter>();
+
+                        PList.Clear();
+                        PList.Add(base.GetParameter("@Resource_ID", R_ID));
+
+                        using ( DbDataReader dReader = base.GetDataReader(sqlStatement, PList, CommandType.Text))
+                        {
+                            if (dReader != null && dReader.HasRows)
+                            {
+                                while (dReader.Read())
+                                {
+                                    previousbooking.ResourceName = (string)dReader["ResourceName"];
+                                }
+                            }
+                        }
+
+                        previousbooking.SlotDate = (DateTime?)dataReader["SlotDate"];
+                        previousbooking.StartTime = (string)dataReader["TimeSlotStart"].ToString();
+                        previousbooking.EndTime = (string)dataReader["TimeSlotEnd"].ToString();
+                        previousbookings.Add(previousbooking);
+                    }
+                }
+                return previousbookings;
             }
         }
     }

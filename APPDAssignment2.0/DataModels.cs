@@ -27,6 +27,7 @@ namespace APPDAssignment2._0
         {
             public int BookingID { get; set; }
             public int ResourceID { get; set; }
+            public string ResourceName { get; set; }
             public DateTime? SlotDate { get; set; }
             public string StartTime { get; set; }
             public string EndTime { get; set; }

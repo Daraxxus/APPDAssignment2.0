@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APPDAssignment2._0.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,47 +20,52 @@ namespace APPDAssignment2._0.Windows
     /// </summary>
     public partial class PreviousBookings : Window
     {
+        BookingManager bookingManager;
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         public PreviousBookings()
         {
             InitializeComponent();
+            bookingManager = new BookingManager();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 5; i++)
+            int i = 0;
+            foreach (var booking in bookingManager.prevBookings(mainWindow.NRIC))
             {
-                Label IDlabel = new Label()
-                {
-                    Tag = i + " name"
-                };
-                IDlabel.Content = i.ToString();
-
                 Label Venuelabel = new Label()
                 {
                     Tag = i + " Venue"
                 };
-                Venuelabel.Content = i.ToString();
+                Venuelabel.Content = booking.ResourceName;
+
+                Label Datelabel = new Label()
+                {
+                    Tag = i + " date"
+                };
+                Datelabel.Content = booking.SlotDate;
 
                 Label STimelabel = new Label()
                 {
                     Tag = i + " Stime"
                 };
-                STimelabel.Content = i.ToString();
+                STimelabel.Content = booking.StartTime;
 
                 Label ETimelabel = new Label()
                 {
                     Tag = i + " ETime"
                 };
-                ETimelabel.Content = i.ToString();
+                ETimelabel.Content = booking.EndTime;
 
-                IDlabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
+                Datelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Venuelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 STimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 ETimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
-                this.PreviousBooking.Children.Add(IDlabel);
+                this.PreviousBooking.Children.Add(Datelabel);
                 this.PreviousBooking.Children.Add(Venuelabel);
                 this.PreviousBooking.Children.Add(STimelabel);
                 this.PreviousBooking.Children.Add(ETimelabel);
+                i++;
             }
         }
 
