@@ -27,8 +27,8 @@ namespace APPDAssignment2._0.Screens
         }
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            Username_ = usernameBox.Text;
-            Password_ = passwordBox.Text;
+            this.Username_ = usernameBox.Text;
+            this.Password_ = passwordBox.Text;
             if (usernameBox.Text == string.Empty || passwordBox.Text == string.Empty) //doesn't detect null
             {
                 MessageBox.Show("Fields must both be filled in");

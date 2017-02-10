@@ -149,5 +149,10 @@ namespace APPDAssignment2._0.Database
             }
             return UserList;
         }
+
+        public void RefreshUsers()
+        {
+            this.Users = GetUsers();
+        }
     }
 }
