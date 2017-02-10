@@ -36,9 +36,21 @@ namespace APPDAssignment2._0
 
         public class User
         {
+            public User()
+            {
+                this.NewUser_ = new List<NewUser>();
+            }
             public string NRIC { get; set; }
             public string Username { get; set; }
             public string Password { get; set; } 
+            public List<NewUser> NewUser_ { get; set; } 
+        }
+
+        public class NewUser
+        {
+            public string NRIC { get; set; }
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
     }
 }
