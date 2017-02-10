@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace APPDAssignment2._0.Database
 {
     public class DatabaseConnection
-    {
+    {//aaa
         protected string ConnectionString { get; set; }
 
         public DatabaseConnection()
