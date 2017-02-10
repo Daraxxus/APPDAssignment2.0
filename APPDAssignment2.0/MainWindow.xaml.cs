@@ -14,7 +14,10 @@ namespace APPDAssignment2._0
     {
         public DatabaseManager databaseManager;
         public BookingManager bookingManager;
+        public Booking booking;
+        public Cart Cart;
         public User newUser;
+        public string NRIC;
         public MainWindow()
         {
             InitializeComponent();
@@ -23,6 +26,8 @@ namespace APPDAssignment2._0
             Switcher.Switch(new Mainpage());
             databaseManager = new DatabaseManager();
             bookingManager = new BookingManager();
+            booking = new Booking();
+            Cart = new Cart();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

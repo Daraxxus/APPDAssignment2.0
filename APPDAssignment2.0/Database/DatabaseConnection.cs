@@ -15,7 +15,7 @@ namespace APPDAssignment2._0.Database
 
         public DatabaseConnection()
         {
-            this.ConnectionString = @"Server=DIT-NB1626500\SQLEXPRESS;Database=APPD_Assignment;trusted_connection=true;MultipleActiveResultSets=True";
+            this.ConnectionString = @"Server=DIT-NB1626427\SQLEXPRESS;Database=APPD_Assignment;trusted_connection=true;MultipleActiveResultSets=True";
         }
 
         public DatabaseConnection(string connectionString)

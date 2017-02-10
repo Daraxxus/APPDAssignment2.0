@@ -15,6 +15,7 @@ namespace APPDAssignment2._0.Screens
         string Password_;
         List<string> uname = new List<string>();
         List<string> upass = new List<string>();
+        List<string> uNRIC = new List<string>();
 
         public Login()
         {
@@ -42,6 +43,7 @@ namespace APPDAssignment2._0.Screens
                 {
                     uname.Add(u.Username);
                     upass.Add(u.Password);
+                    uNRIC.Add(u.NRIC);
                 } //works
 
                 if (uname.IndexOf(Username_) != -1) //if username exists
@@ -50,6 +52,7 @@ namespace APPDAssignment2._0.Screens
                     {
                         if ((uname.IndexOf(Username_)) == (upass.IndexOf(Password_))) //if password matches username
                         {
+                            mainWindow.NRIC = uNRIC[(uname.IndexOf(Username_))];
                             Switcher.Switch(new ResourceSelection(0));
                         }
                         else

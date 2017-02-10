@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using APPDAssignment2._0.Database;
+using System.Windows;
 using System.Windows.Controls;
+using static APPDAssignment2._0.DataModels;
 
 namespace APPDAssignment2._0.Windows
 {
@@ -8,6 +10,8 @@ namespace APPDAssignment2._0.Windows
     /// </summary>
     public partial class CartBookings : Window
     {
+        MainWindow Mainwindow = (MainWindow)Application.Current.MainWindow;
+        Cart cart;
         public CartBookings()
         {
             InitializeComponent();
@@ -15,54 +19,67 @@ namespace APPDAssignment2._0.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 1; i <= 5; i++)
+            cart = Mainwindow.Cart;
+            int i = 0;
+
+            foreach (var Booking in cart.Cart_)
             {
-                Label IDlabel = new Label()
+                Label Venuelabel = new Label()
                 {
                     Tag = i + " name"
                 };
-                IDlabel.Content = i.ToString();
+                Venuelabel.Content = Booking.ResourceName;
 
-                Label Venuelabel = new Label()
+                Label Datelabel = new Label()
                 {
-                    Tag = i + " Venue"
+                    Tag = i + " Date"
                 };
-                Venuelabel.Content = i.ToString();
+                Datelabel.Content = Booking.SlotDate;
 
                 Label STimelabel = new Label()
                 {
                     Tag = i + " Stime"
                 };
-                STimelabel.Content = i.ToString();
+                STimelabel.Content = Booking.StartTime;
 
                 Label ETimelabel = new Label()
                 {
                     Tag = i + " ETime"
                 };
-                ETimelabel.Content = i.ToString();
+                ETimelabel.Content = Booking.EndTime;
 
                 Label Pricelabel = new Label()
                 {
                     Tag = i + " Price"
                 };
-                Pricelabel.Content = i.ToString();
+                Pricelabel.Content = Booking.Price;
 
-                IDlabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Venuelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
+                Datelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 STimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 ETimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Pricelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
-                this.PreviousBooking.Children.Add(IDlabel);
                 this.PreviousBooking.Children.Add(Venuelabel);
+                this.PreviousBooking.Children.Add(Datelabel);
                 this.PreviousBooking.Children.Add(STimelabel);
                 this.PreviousBooking.Children.Add(ETimelabel);
                 this.PreviousBooking.Children.Add(Pricelabel);
-
+                i++;
             }
+
         }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            BookingManager BM = new BookingManager();
+            Cart Cart = Mainwindow.Cart;
+            BM.confirmBooking(Cart);
+            MessageBox.Show("Your Booking has Been Processed");
         }
     }
 }

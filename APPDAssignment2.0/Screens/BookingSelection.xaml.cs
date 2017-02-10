@@ -14,6 +14,8 @@ namespace APPDAssignment2._0.Screens
     /// </summary>
     public partial class BookingSelection : UserControl
     {
+        BookingManager BM = new BookingManager();
+        Cartitem CT = new Cartitem();
         List<string> StartTime = new List<string>();
         List<string> EndTime = new List<string>();
         List<DateTime?> Date = new List<DateTime?>();
@@ -74,6 +76,46 @@ namespace APPDAssignment2._0.Screens
             ResourceBox.Text = Resourcename[resourceid-1];
             DateBox.ItemsSource = Date;
             TimeslotBox.ItemsSource = TimeSlot;
+        }
+        private void Book_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            Cart Cart = mainWindow.Cart;
+            MessageBoxResult messageBoxResult = MessageBox.Show("Add to Cart?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                if (TimeslotBox.SelectedItem != null)
+                {
+                    if (DateBox.SelectedItem != null)
+                    {
+                        if (BM.checkAvail(this.resourceid, Convert.ToDateTime(DateBox.SelectedValue), StartTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())]))
+                        {
+                            CT.ResourceID = this.resourceid;
+                            CT.ResourceName = ResourceBox.Text;
+                            CT.SlotDate = Convert.ToDateTime(DateBox.SelectedValue);
+                            CT.StartTime = StartTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
+                            CT.EndTime = EndTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
+                            CT.Price = Price_[categoryid];
+                            CT.NRIC = mainWindow.NRIC;
+                            CT.BookingDate = DateTime.Now;
+                            Cart.Cart_.Add(CT);
+                            MessageBox.Show("This item has been added to the cart");
+                            Switcher.Switch(new ResourceSelection());
+                        }
+                        else
+                            MessageBox.Show("This timeslot is Unavailable");
+                    }
+                    else
+                        MessageBox.Show("PLease eneter input Date");
+                }
+                else
+                    MessageBox.Show("PLease eneter input a timeslot");
+            }
+        }
+
+        private void Back_Click_1(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new ResourceSelection(categoryid + 1));
         }
     }
 }

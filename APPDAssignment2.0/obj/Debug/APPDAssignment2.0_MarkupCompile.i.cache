@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\GARY\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\
+C:\Users\Barnabas\Documents\Application Development\Projects\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\
 APPDAssignment2._0
 none
 false
 DEBUG;TRACE
-C:\GARY\APPDAssignment2.0\APPDAssignment2.0\App.xaml
+C:\Users\Barnabas\Documents\Application Development\Projects\APPDAssignment2.0\APPDAssignment2.0\App.xaml
 81613858320
 
 22-717289499
 13738642453
 MainWindow.xaml;Screens\BookingSelection.xaml;Screens\Login.xaml;Screens\Mainpage.xaml;Screens\ResourceSelection.xaml;Windows\CartBookings.xaml;Windows\PreviousBookings.xaml;Windows\SignUp.xaml;
 
-True
+False
 

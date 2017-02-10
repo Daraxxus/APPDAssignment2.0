@@ -24,8 +24,8 @@
         <Label Name="Booking" Grid.Row="1" Grid.Column="0" Content="Booking:" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <Label Name="Price" Grid.Row="4" Grid.Column="0" Content="Price:" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-        <Button Name="Back" Content="Back" FontSize="18" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Grid.Row="5" Grid.Column="1"/>
-        <Button Name="Book" Content="Book" FontSize="18" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,120,0" Grid.Row="5" Grid.Column="1"/>
+        <Button Name="Back" Content="Back" FontSize="18" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Grid.Row="5" Grid.Column="1" Click="Back_Click_1"/>
+        <Button Name="Book" Content="Book" FontSize="18" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,120,0" Grid.Row="5" Grid.Column="1" Click="Book_Click_1"/>
 
         <ComboBox x:Name="TimeslotBox" FontSize="18"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="300" Height="30"/>
         <TextBox x:Name="ResourceBox" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="10,0,50,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" IsReadOnly="True"/>
