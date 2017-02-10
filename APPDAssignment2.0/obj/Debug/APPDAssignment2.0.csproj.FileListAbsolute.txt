@@ -26,3 +26,6 @@ C:\Users\Gary\Desktop\School\Year 1\Sem 2\APPD\APPDBookingAssignment\APPDAssignm
 C:\Users\Gary\Desktop\School\Year 1\Sem 2\APPD\APPDBookingAssignment\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\APPDAssignment2.0.csprojResolveAssemblyReference.cache
 C:\Users\Gary\Desktop\School\Year 1\Sem 2\APPD\APPDBookingAssignment\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\Screens\BookingSelection.g.cs
 C:\Users\Gary\Desktop\School\Year 1\Sem 2\APPD\APPDBookingAssignment\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\Screens\BookingSelection.baml
+C:\GARY\APPDAssignment2.0\APPDAssignment2.0\bin\Debug\APPDAssignment2.0.exe.config
+C:\GARY\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\APPDAssignment2.0.exe
+C:\GARY\APPDAssignment2.0\APPDAssignment2.0\obj\Debug\APPDAssignment2.0.pdb
