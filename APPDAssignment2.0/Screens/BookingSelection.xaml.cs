@@ -15,7 +15,7 @@ namespace APPDAssignment2._0.Screens
     public partial class BookingSelection : UserControl
     {
         BookingManager BM = new BookingManager();
-        Cartitem CT = new Cartitem();
+        Booking booking = new Booking();
         List<string> StartTime = new List<string>();
         List<string> EndTime = new List<string>();
         List<DateTime?> Date = new List<DateTime?>();
@@ -80,7 +80,7 @@ namespace APPDAssignment2._0.Screens
         private void Book_Click_1(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            Cart Cart = mainWindow.Cart;
+            Bookings bookings = mainWindow.bookings;
             MessageBoxResult messageBoxResult = MessageBox.Show("Add to Cart?", "Delete Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
@@ -90,15 +90,15 @@ namespace APPDAssignment2._0.Screens
                     {
                         if (BM.checkAvail(this.resourceid, Convert.ToDateTime(DateBox.SelectedValue), StartTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())]))
                         {
-                            CT.ResourceID = this.resourceid;
-                            CT.ResourceName = ResourceBox.Text;
-                            CT.SlotDate = Convert.ToDateTime(DateBox.SelectedValue);
-                            CT.StartTime = StartTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
-                            CT.EndTime = EndTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
-                            CT.Price = Price_[categoryid];
-                            CT.NRIC = mainWindow.NRIC;
-                            CT.BookingDate = DateTime.Now;
-                            Cart.Cart_.Add(CT);
+                            booking.ResourceID = this.resourceid;
+                            booking.ResourceName = ResourceBox.Text;
+                            booking.SlotDate = Convert.ToDateTime(DateBox.SelectedValue);
+                            booking.StartTime = StartTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
+                            booking.EndTime = EndTime[TimeSlot.IndexOf(TimeslotBox.SelectedValue.ToString())];
+                            booking.Price = Price_[categoryid];
+                            booking.NRIC = mainWindow.NRIC;
+                            booking.BookingDate = DateTime.Now;
+                            bookings.Bookings_.Add(booking);
                             MessageBox.Show("This item has been added to the cart");
                             Switcher.Switch(new ResourceSelection());
                         }

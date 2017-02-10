@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using static APPDAssignment2._0.DataModels;
+using System;
 
 namespace APPDAssignment2._0.Windows
 {
@@ -11,7 +12,8 @@ namespace APPDAssignment2._0.Windows
     public partial class CartBookings : Window
     {
         MainWindow Mainwindow = (MainWindow)Application.Current.MainWindow;
-        Cart cart;
+        Bookings bookings;
+
         public CartBookings()
         {
             InitializeComponent();
@@ -19,10 +21,10 @@ namespace APPDAssignment2._0.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cart = Mainwindow.Cart;
+            bookings = Mainwindow.bookings;
             int i = 0;
 
-            foreach (var Booking in cart.Cart_)
+            foreach (var Booking in bookings.Bookings_)
             {
                 Label Venuelabel = new Label()
                 {
@@ -54,6 +56,17 @@ namespace APPDAssignment2._0.Windows
                 };
                 Pricelabel.Content = Booking.Price;
 
+                Button deleteButton = new Button()
+                {
+                    Tag = i
+                };
+
+                deleteButton.Height = 30;
+                deleteButton.Width = 80;
+                deleteButton.Content = "Delete";
+                deleteButton.Click += new RoutedEventHandler(deleteButton_Click);
+
+                button.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Venuelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Datelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 STimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
@@ -64,12 +77,25 @@ namespace APPDAssignment2._0.Windows
                 this.PreviousBooking.Children.Add(STimelabel);
                 this.PreviousBooking.Children.Add(ETimelabel);
                 this.PreviousBooking.Children.Add(Pricelabel);
+                this.PreviousBooking.Children.Add(deleteButton);
                 i++;
             }
 
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            int i;
+            Button deleteButton = (Button)sender;
+            i = Int32.Parse(deleteButton.Tag.ToString());
+            CartBookings CB = new CartBookings();
+            bookings.Bookings_.RemoveAt(i);
+            this.Close();
+            CB.Show();
+            
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -77,9 +103,15 @@ namespace APPDAssignment2._0.Windows
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             BookingManager BM = new BookingManager();
-            Cart Cart = Mainwindow.Cart;
-            BM.confirmBooking(Cart);
-            MessageBox.Show("Your Booking has Been Processed");
+            Bookings currentBookings = Mainwindow.bookings;
+            if (BM.confirmBooking(currentBookings))
+            {
+                MessageBox.Show("Your Booking has Been Processed");
+                currentBookings.Bookings_.Clear();
+                this.Close();
+            }
+            else
+                MessageBox.Show("Please Add Somthing to Cart before Booking");
         }
     }
 }

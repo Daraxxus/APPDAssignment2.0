@@ -28,21 +28,27 @@ namespace APPDAssignment2._0.Database
             }
             return true;
         }//End of SaveOrderAndOrderDetails
-        public void confirmBooking(Cart inCart) //Added this
+        public bool confirmBooking(Bookings inbookings) //returns true if there is something in list
         {
+            bool end = false;
             List<DbParameter> parameterList = new List<DbParameter>();
 
-            string sql = "UPDATE BOOKING SET NRIC = @NRIC, BookingDate = @BookingDate WHERE ResourceID = @Resource AND SlotDate = @SlotDate AND TimeSlotStart = @StartTime";
-            foreach (var Booking in inCart.Cart_)
+            if (inbookings.Bookings_.Count() > 0)
             {
-                parameterList.Clear();
-                parameterList.Add(base.GetParameter("@NRIC", Booking.NRIC));
-                parameterList.Add(base.GetParameter("@BookingDate", Booking.BookingDate));
-                parameterList.Add(base.GetParameter("@Resource", Booking.ResourceID));
-                parameterList.Add(base.GetParameter("@SlotDate", Booking.SlotDate));
-                parameterList.Add(base.GetParameter("@StartTime", Booking.StartTime));
-                base.ExecuteScalar(sql, parameterList);
+                string sql = "UPDATE BOOKING SET NRIC = @NRIC, BookingDate = @BookingDate WHERE ResourceID = @Resource AND SlotDate = @SlotDate AND TimeSlotStart = @StartTime";
+                foreach (var Booking in inbookings.Bookings_)
+                {
+                    parameterList.Clear();
+                    parameterList.Add(base.GetParameter("@NRIC", Booking.NRIC));
+                    parameterList.Add(base.GetParameter("@BookingDate", Booking.BookingDate));
+                    parameterList.Add(base.GetParameter("@Resource", Booking.ResourceID));
+                    parameterList.Add(base.GetParameter("@SlotDate", Booking.SlotDate));
+                    parameterList.Add(base.GetParameter("@StartTime", Booking.StartTime));
+                    base.ExecuteScalar(sql, parameterList);
+                }
+                end = true;
             }
+            return end;
         } //end
         public bool checkAvail(int ResourceID, DateTime? Slotdate, string STime)
         {
@@ -74,6 +80,8 @@ namespace APPDAssignment2._0.Database
                 return canBook;
             }
         }
+
+
         public List<Booking> prevBookings(string NRIC)
         {
             List<DbParameter> parameterList = new List<DbParameter>();
