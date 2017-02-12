@@ -42,7 +42,7 @@ namespace APPDAssignment2._0
             {
                 this.Bookings_ = new List<Booking>();
             }
-            public List<Booking> Bookings_ { get; set; }
+            public List<Booking> Bookings_ {get; set;}
         }
 
         public class User

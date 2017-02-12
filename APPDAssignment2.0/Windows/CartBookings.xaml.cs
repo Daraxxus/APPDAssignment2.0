@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using static APPDAssignment2._0.DataModels;
 using System;
+using System.Globalization;
+using System.Text;
 
 namespace APPDAssignment2._0.Windows
 {
@@ -66,7 +68,7 @@ namespace APPDAssignment2._0.Windows
                 deleteButton.Content = "Delete";
                 deleteButton.Click += new RoutedEventHandler(deleteButton_Click);
 
-                button.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
+                button.Margin = new Thickness { Top = 1, Bottom = 3, Left = 3, Right = 3 };
                 Venuelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 Datelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 STimelabel.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
@@ -86,13 +88,17 @@ namespace APPDAssignment2._0.Windows
         void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             int i;
-            Button deleteButton = (Button)sender;
-            i = Int32.Parse(deleteButton.Tag.ToString());
-            CartBookings CB = new CartBookings();
-            bookings.Bookings_.RemoveAt(i);
-            this.Close();
-            CB.Show();
-            
+            MessageBoxResult messageBoxResult = MessageBox.Show("Remove Cart Item?", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Button deleteButton = (Button)sender;
+                i = Int32.Parse(deleteButton.Tag.ToString());
+                CartBookings CB = new CartBookings();
+                bookings.Bookings_.RemoveAt(i);
+                this.Close();
+                CB.Show();
+            }
+
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -102,11 +108,21 @@ namespace APPDAssignment2._0.Windows
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
+            StringBuilder message = new StringBuilder();
             BookingManager BM = new BookingManager();
             Bookings currentBookings = Mainwindow.bookings;
             if (BM.confirmBooking(currentBookings))
             {
                 MessageBox.Show("Your Booking has Been Processed");
+                foreach (var x in currentBookings.Bookings_)
+                {
+                    message.Append(x.ResourceName).AppendLine();
+                    message.Append(x.SlotDate).AppendLine();
+                    message.Append(x.StartTime + "-" + x.EndTime).AppendLine();
+                    message.Append(x.Price.ToString("C2", CultureInfo.CurrentCulture)).AppendLine();
+                    message.AppendLine();
+                }
+                MessageBox.Show(message.ToString(), "Receipt");
                 currentBookings.Bookings_.Clear();
                 this.Close();
             }

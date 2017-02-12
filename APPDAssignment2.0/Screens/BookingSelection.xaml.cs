@@ -18,7 +18,7 @@ namespace APPDAssignment2._0.Screens
         Booking booking = new Booking();
         List<string> StartTime = new List<string>();
         List<string> EndTime = new List<string>();
-        List<DateTime?> Date = new List<DateTime?>();
+        List<string> Date = new List<string>();
         List<decimal> Price_ = new List<decimal>();
         List<string> Resourcename = new List<string>();
         List<string> TimeSlot = new List<string>();
@@ -58,9 +58,11 @@ namespace APPDAssignment2._0.Screens
             {
                 StartTime.Add(b.StartTime);
                 EndTime.Add(b.EndTime);
-                if (!Date.Contains(b.SlotDate))
+                DateTime dt = DateTime.Parse(b.SlotDate.ToString());
+                string s = dt.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                if (!Date.Contains(s))
                 {
-                    Date.Add(b.SlotDate);
+                    Date.Add(s);
                 }
             }
 
@@ -77,11 +79,12 @@ namespace APPDAssignment2._0.Screens
             DateBox.ItemsSource = Date;
             TimeslotBox.ItemsSource = TimeSlot;
         }
+
         private void Book_Click_1(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             Bookings bookings = mainWindow.bookings;
-            MessageBoxResult messageBoxResult = MessageBox.Show("Add to Cart?", "Delete Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Add to Cart?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (TimeslotBox.SelectedItem != null)
@@ -106,10 +109,10 @@ namespace APPDAssignment2._0.Screens
                             MessageBox.Show("This timeslot is Unavailable");
                     }
                     else
-                        MessageBox.Show("PLease eneter input Date");
+                        MessageBox.Show("PLease enter input Date");
                 }
                 else
-                    MessageBox.Show("PLease eneter input a timeslot");
+                    MessageBox.Show("PLease enter input a timeslot");
             }
         }
 

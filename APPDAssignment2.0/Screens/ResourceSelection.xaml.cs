@@ -94,7 +94,7 @@ namespace APPDAssignment2._0.Screens
                 stackPanel.Children.Add(textBlock);
                 button.Content = stackPanel;
 
-                button.Margin = new System.Windows.Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
+                button.Margin = new Thickness { Top = 3, Bottom = 3, Left = 3, Right = 3 };
                 this.itemButtonsUniformGrid.Children.Add(button);
             } //MAKE SCROLLABLE/NEXT PAGE/RESIZABLE
         }
@@ -106,8 +106,17 @@ namespace APPDAssignment2._0.Screens
                 Switcher.Switch(new ResourceSelection(Int32.Parse(button.Tag.ToString())));
             }
             else
-            {             
-                Switcher.Switch(new BookingSelection(ResourceScreen * int.Parse(button.Tag.ToString()), ResourceScreen));
+            {
+                if (ResourceScreen == 1)
+                {
+                    Switcher.Switch(new BookingSelection(int.Parse(button.Tag.ToString()),
+                        ResourceScreen));
+                }
+                else
+                {
+                    Switcher.Switch(new BookingSelection(int.Parse(button.Tag.ToString())+6,
+                       ResourceScreen));
+                }
             }
         }
 

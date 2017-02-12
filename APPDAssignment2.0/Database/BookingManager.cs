@@ -33,7 +33,7 @@ namespace APPDAssignment2._0.Database
             bool end = false;
             List<DbParameter> parameterList = new List<DbParameter>();
 
-            if (inbookings.Bookings_.Count() > 0)
+            if (inbookings.Bookings_.Any())
             {
                 string sql = "UPDATE BOOKING SET NRIC = @NRIC, BookingDate = @BookingDate WHERE ResourceID = @Resource AND SlotDate = @SlotDate AND TimeSlotStart = @StartTime";
                 foreach (var Booking in inbookings.Bookings_)
@@ -70,7 +70,6 @@ namespace APPDAssignment2._0.Database
                     {
                         if (!(dataReader["BookingDate"] is DBNull))
                         {
-                            MessageBox.Show("This Timeslot is Unavailable");
                             canBook = false;
                             break;
                         }
@@ -80,7 +79,6 @@ namespace APPDAssignment2._0.Database
                 return canBook;
             }
         }
-
 
         public List<Booking> prevBookings(string NRIC)
         {
